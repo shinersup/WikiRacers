@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "C:\Program Files\Graphviz\include\graphviz\cgraph.h"
+#include "cgraph.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -21,6 +21,7 @@ private:
 
 public:
     bool parse_graph(string path);
+    Graph();
     ~Graph();
 };
 
