@@ -45,14 +45,15 @@ bool Graph::parse_graph(string path)
     return 1;
 };
 
-Graph::Graph()
+// Constructor that automatically builds graph from .csv file
+Graph::Graph(string path)
 {
-    // Taken frmo cgraph.h documentation
+    // Taken from cgraph.h documentation
     g = agopen("G", Agdirected, NULL);
+    parse_graph(path);
 }
 
 Graph::~Graph()
 {
-
     agclose(g);
 }
