@@ -17,7 +17,6 @@ class Graph
 {
 private:
     Agraph_t* g;
-    map<string, int> m;
 
 public:
     bool parse_graph(string path);
