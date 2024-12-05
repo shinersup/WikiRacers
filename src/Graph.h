@@ -41,7 +41,7 @@ public:
     // Algorithms for traversing the graph
     // Returns a pair of a vector of the pointers to nodes in the path found, and the set of pointers
     // to nodes visited
-    void dfs();
-    void bfs();
-    void dijkstras();
+    bool dfs();
+    bool bfs();
+    bool dijkstras();
 };
