@@ -1,11 +1,14 @@
-#include "mainwindow.h"
+//
+// Created by Ethan on 12/4/2024.
+//
+#include "Graph.h"
+#include <iostream>
+#include <fstream>
+#include<string>
+#include <unordered_set>
+#include <vector>
 
-#include <QApplication>
-
-int main(int argc, char *argv[])
+int main()
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    Graph g("C:\\Users\\ethan\\DSA\\WikiRacers\\Test.csv");
 }

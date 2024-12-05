@@ -2,14 +2,19 @@
 // Created by Ethan on 12/4/2024.
 //
 #include "Graph.h"
+#include "DrawSolution.h"
 #include <iostream>
 #include <fstream>
 #include<string>
 #include <unordered_set>
 #include <vector>
 
-void DrawSolution(string outfile, vector<pair<string, string>> edges, unordered_set<string> visited, vector<pair<string, string>>
-                                                                                                         solution){
+
+void DrawSolution(const std::string& outfile,
+                  const std::vector<std::pair<std::string, std::string>>& edges,
+                  const std::unordered_set<std::string>& visited,
+                  const std::vector<std::pair<std::string, std::string>>& solution
+){
     //Create file to write DOT file to
     ofstream file(outfile);
     file << "Digraph MyGraph {\n";
@@ -34,10 +39,9 @@ void DrawSolution(string outfile, vector<pair<string, string>> edges, unordered_
     }
     file << "}\n";
     file.close();
-
 }
+
 int main()
 {
-    Graph g;
-    g.parse_graph("C:\\Users\\ethan\\DSA\\WikiRacers\\Test.csv");
+    Graph g("C:\\Users\\ethan\\DSA\\WikiRacers\\Test.csv");
 }

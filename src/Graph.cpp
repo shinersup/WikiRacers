@@ -256,3 +256,18 @@ void Graph::relax(Agedge_s* e, map<Agnode_t*, int> dist, map<Agnode_t*, Agnode_t
         parent[v] = u;
     }
 }
+
+void Graph::setFromTo(string start, string end)
+{
+    // Because the cgraph function only takes non-const c-strings,
+    // Create temporary non-const duplicates
+    // NOTE: A hack but it works
+    char* cFromName = strdup(start.c_str());
+    char* cToName = strdup(end.c_str());
+    // Adds the two nodes and the edge to the graph
+    // NOTE: createflag = 1 means it won't return null if it already exists
+    Agnode_t* n = agnode(g, cFromName, 1);
+    Agnode_t* m = agnode(g, cToName, 1);
+    from = n;
+    to = m;
+}

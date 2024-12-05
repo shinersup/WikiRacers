@@ -3,6 +3,8 @@
 #include <QMessageBox>
 #include <QPixmap>
 #include <unordered_set>
+#include "DrawSolution.h"
+#include "Graph.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
