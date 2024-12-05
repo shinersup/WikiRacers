@@ -33,6 +33,12 @@ void MainWindow::on_solveButton_clicked()
     // Sets start and end points for the graph
     graph->setFromTo(startPage.toStdString(), endPage.toStdString());
 
+    // Converts the Qstrings to strings
+    std::string startPageStd = startPage.toStdString();
+    std::string endPageStd = endPage.toStdString();
+    std::string algorithmStd = algorithm.toStdString();
+
+
     // Runs the algorithm function
     bool result = false;
     if (algorithm == "Breadth-First Search") {
@@ -40,7 +46,7 @@ void MainWindow::on_solveButton_clicked()
     } else if (algorithm == "Depth-First Search") {
         result = graph->dfs();
     } else if (algorithm == "Dijkstra's Algorithm") {
-        // Make result = the Dijkstra graph function
+        result = graph->dijkstras();
     }
 
     if (!result) {
