@@ -4,6 +4,8 @@
 
 #include "Graph.h"
 #include <cstring>
+#include <stack>
+#include <algorithm>
 
 // https://stackoverflow.com/questions/1120140/how-can-i-read-and-parse-csv-files-in-c
 bool Graph::parse_graph(string path)
@@ -56,4 +58,59 @@ Graph::Graph(string path)
 Graph::~Graph()
 {
     agclose(g);
+}
+
+// Code taken from lecture notes 8a - Graph Terminology and Implementation
+bool Graph::dfs()
+{
+    bool discovered = false;
+    // Initialize the stack
+    stack<Agnode_t*> s;
+
+    // Push and visit the "from" node
+    s.push(from);
+    visited.insert(from);
+
+    // While the stack is not empty,
+    while(!s.empty() && !discovered)
+    {
+        // Pop the top node
+        Agnode_t* node = s.top();
+        s.pop();
+
+        // Taken from https://www.graphviz.org/pdf/cgraph.pdf documentation
+        // For each outgoing edge of the node,
+        for (auto e = agfstout(g,node); e; e = agnxtout(g,e))
+        {
+            // If the "to" vertex is a neighbor,
+            if (e->node == to)
+            {
+                // We have discovered a path, so set the boolean to true and break
+                discovered = true;
+            }
+
+            // If the node has not already been visited,
+            if (visited.find(e->node) == visited.end())
+            {
+                // Visit the node and push to the stack
+                visited.insert(e->node);
+                s.push(e->node);
+            }
+        }
+    }
+
+    // If there was an s-t path discovered, unpack it
+    if(discovered)
+    {
+        path.push_back(to);
+        while(!s.empty())
+        {
+            path.push_back(s.top());
+            s.pop();
+        }
+        reverse(path.begin(), path.end());
+        return true;
+    }
+
+    return false;
 }
