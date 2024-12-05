@@ -46,5 +46,5 @@ public:
     bool bfs();
     bool dijkstras();
 
-    void relax(Agedge_t e, map<Agnode_t*, int> dist, map<Agnode_t*, Agnode_t*> parent);
+    void relax(Agedge_t* e, map<Agnode_t*, int> dist, map<Agnode_t*, Agnode_t*> parent);
 };

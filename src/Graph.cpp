@@ -245,7 +245,7 @@ bool Graph::dijkstras()
     return false;
 }
 
-void Graph::relax(Agedge_t e, map<Agnode_t*, int> dist, map<Agnode_t*, Agnode_t*> parent)
+void Graph::relax(Agedge_s* e, map<Agnode_t*, int> dist, map<Agnode_t*, Agnode_t*> parent)
 {
     auto u = agtail(e);
     auto v = aghead(e);
