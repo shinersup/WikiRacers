@@ -23,7 +23,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Graph* graph;
+    Graph* graph; // Pointer to the Graph object
     void drawGraphVisualization(QString filePath);
 };
+
 #endif // MAINWINDOW_H
