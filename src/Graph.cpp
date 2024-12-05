@@ -5,7 +5,9 @@
 #include "Graph.h"
 #include <cstring>
 #include <stack>
+#include <queue>
 #include <algorithm>
+#include <map>
 
 // https://stackoverflow.com/questions/1120140/how-can-i-read-and-parse-csv-files-in-c
 bool Graph::parse_graph(string path)
@@ -60,7 +62,7 @@ Graph::~Graph()
     agclose(g);
 }
 
-// Code taken from lecture notes 8a - Graph Terminology and Implementation
+// Code taken from lecture notes 8a
 bool Graph::dfs()
 {
     bool discovered = false;
@@ -107,6 +109,68 @@ bool Graph::dfs()
         {
             path.push_back(s.top());
             s.pop();
+        }
+        reverse(path.begin(), path.end());
+        return true;
+    }
+
+    return false;
+}
+
+// Code taken from lecture notes 8a - Graph Terminology and Implementation
+bool Graph::bfs()
+{
+    bool discovered = false;
+    // Initialize the stack
+    stack<Agnode_t*> s;
+
+    // Initialize map from each vertex to its parent for going backwards
+    map<Agnode_t*, Agnode_t*> parent;
+
+    // Push and visit the "from" node
+    s.push(from);
+    visited.insert(from);
+    parent[from] = nullptr;
+
+    // While the stack is not empty,
+    while(!s.empty() && !discovered)
+    {
+        // Pop the top node
+        Agnode_t* node = s.top();
+        s.pop();
+
+        // Taken from https://www.graphviz.org/pdf/cgraph.pdf documentation
+        // For each outgoing edge of the node,
+        for (auto e = agfstout(g,node); e; e = agnxtout(g,e))
+        {
+            // If the "to" vertex is a neighbor,
+            if (e->node == to)
+            {
+                // We have discovered a path, so set the boolean to true and break
+                discovered = true;
+            }
+
+            // If the node has not already been visited,
+            if (visited.find(e->node) == visited.end())
+            {
+                // Visit the node and push to the stack
+                visited.insert(e->node);
+                s.push(e->node);
+
+                // Add the current node as its parent
+                parent[e->node] = agtail(e);
+            }
+        }
+    }
+
+    // If there was an s-t path discovered, unpack it
+    if(discovered)
+    {
+        Agnode_t* currNode = to;
+        while(currNode != nullptr)
+        {
+            path.push_back(currNode);
+            currNode = parent[currNode];
         }
         reverse(path.begin(), path.end());
         return true;
