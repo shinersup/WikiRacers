@@ -12,6 +12,7 @@
 #include <utility>
 #include <set>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -44,4 +45,6 @@ public:
     bool dfs();
     bool bfs();
     bool dijkstras();
+
+    void relax(Agedge_t e, map<Agnode_t*, int> dist, map<Agnode_t*, Agnode_t*> parent);
 };
