@@ -12,7 +12,7 @@ void DrawSolution(string outfile, vector<pair<string, string>> edges, unordered_
 solution){
     //Create file to write DOT file to
     ofstream file(outfile);
-    file << "Digraph G {\n";
+    file << "Digraph MyGraph {\n";
     //Drawing edges of graph
     for (auto edge : edges){
         file << " \"" << edge.first << "\" -> \"" << edge.second << "\";\n";
