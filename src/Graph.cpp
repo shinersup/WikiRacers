@@ -178,3 +178,81 @@ bool Graph::bfs()
 
     return false;
 }
+
+// Code taken from lecture notes 9
+bool Graph::dijkstras()
+{
+    // Initialize map from each vertex to its parent
+    map<Agnode_t*, Agnode_t*> parent;
+
+    // Initialize map from node to its current distance from the source
+    map<Agnode_t*, int> dist;
+
+    vector<Agnode_t*> remaining;
+
+    // Initialize the two with default values
+    for (auto n = agfstnode(g); n; n = agnxtnode(g,n))
+    {
+        parent[n] = nullptr;
+        if(n == from)
+        {
+            dist[n] = 0;
+        }
+        else
+        {
+            dist[n] = INT_MAX;
+        }
+        remaining.push_back(n);
+    }
+
+    while(!remaining.empty())
+    {
+        // First, get the minimum node
+        int minNodeIndex = 0;
+        Agnode_t* minNode = nullptr;
+        int i = 1;
+        for(i = 1 ; i < remaining.size() ; ++i)
+        {
+            auto n = remaining[i];
+            if(dist[remaining[minNodeIndex]] > dist[n])
+            {
+                minNode = n;
+                minNodeIndex = i;
+            }
+        }
+
+        // Then, for each outgoing edge, relax the node
+        for (auto e = agfstout(g,minNode); e; e = agnxtout(g,e))
+        {
+            relax(e, dist, parent);
+        }
+        remaining.erase(remaining.begin() + i);
+    }
+
+    // If there was an s-t path discovered, unpack it
+    if(parent[to] != nullptr)
+    {
+        Agnode_t* currNode = to;
+        while(currNode != nullptr)
+        {
+            path.push_back(currNode);
+            currNode = parent[currNode];
+        }
+        reverse(path.begin(), path.end());
+        return true;
+    }
+
+    return false;
+}
+
+void Graph::relax(Agedge_t e, map<Agnode_t*, int> dist, map<Agnode_t*, Agnode_t*> parent)
+{
+    auto u = agtail(e);
+    auto v = aghead(e);
+
+    if(dist[u] + 1 < dist[v])
+    {
+        dist[v] = dist[u] + 1;
+        parent[v] = u;
+    }
+}
