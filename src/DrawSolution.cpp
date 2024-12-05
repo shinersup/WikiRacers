@@ -40,8 +40,3 @@ void DrawSolution(const std::string& outfile,
     file << "}\n";
     file.close();
 }
-
-int main()
-{
-    Graph g("C:\\Users\\ethan\\DSA\\WikiRacers\\Test.csv");
-}

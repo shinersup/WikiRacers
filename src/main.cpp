@@ -10,5 +10,6 @@
 
 int main()
 {
-    Graph g("C:\\Users\\ethan\\DSA\\WikiRacers\\Test.csv");
+    cout << "Hi";
+    //Graph g("C:\\Users\\ethan\\DSA\\WikiRacers\\Test.csv");
 }
